@@ -71,7 +71,7 @@ jobs:
 
     - name: Download App versions from SosinVitalii.com server
       run: |
-        curl --ssl-reqd --insecure --user ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} -O "ftp://${{ secrets.FTP_SERVER }}/versions.json"
+        curl --ssl-reqd --insecure --user ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} -O "ftp://${{ secrets.FTP_SERVER }}/avatars_versions.json"
 
     - name: Increase App version and build number
       run: |
@@ -83,7 +83,7 @@ jobs:
 
     - name: Upload App versions to SosinVitalii.com server
       run: |
-        curl --ssl-reqd --insecure --user ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} -T "./versions.json" "ftp://${{ secrets.FTP_SERVER }}/versions.json"
+        curl --ssl-reqd --insecure --user ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} -T "./avatars_versions.json" "ftp://${{ secrets.FTP_SERVER }}/avatars_versions.json"
 
     - name: Tuist generate
       run: |
@@ -131,8 +131,8 @@ jobs:
 
     - name: Get MARKETING_VERSION and CURRENT_PROJECT_VERSION
       run: |
-        echo "MARKETING_VERSION=$(jq -r '.marketing_version' versions.json)" >> $GITHUB_ENV
-        echo "CURRENT_PROJECT_VERSION=$(jq -r '.current_project_version' versions.json)" >> $GITHUB_ENV
+        echo "MARKETING_VERSION=$(jq -r '.marketing_version' avatars_versions.json)" >> $GITHUB_ENV
+        echo "CURRENT_PROJECT_VERSION=$(jq -r '.current_project_version' avatars_versions.json)" >> $GITHUB_ENV
 
     - name: Create and push Release git tag
       run: |
