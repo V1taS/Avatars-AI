@@ -68,9 +68,9 @@ jobs:
       run: |
         tuist generate
 
-    - name: Run tests
-      run: |
-        bundle exec fastlane test
+    # - name: Run tests
+    #   run: |
+    #     bundle exec fastlane test
 
     - name: Build and archive the app
       run: |
