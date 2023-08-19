@@ -1,0 +1,11 @@
+/*
+ InfoPlist.strings
+ 
+ Created by Vitalii Sosin on 12.01.2022.
+ Copyright © 2022 SosinVitalii.com. All rights reserved.
+ */
+
+"NSUserTrackingUsageDescription" = "Can you use your activity data? If you allow ads on websites and other apps will be more relevant.";
+"NSPhotoLibraryAddUsageDescription" = "Give access to your gallery so you can save ready-made 'Image results' or upload photos for filtering.";
+"NSPhotoLibraryUsageDescription" = "Give access to your gallery so you can save ready-made 'Image results' or upload photos for filtering.";
+"NSCameraUsageDescription" = "Share your camera so you can take a photo for filtering.";
