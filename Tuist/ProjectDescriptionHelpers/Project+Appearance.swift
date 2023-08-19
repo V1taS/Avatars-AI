@@ -17,7 +17,7 @@ public let ai = "AI"
 
 // Settings
 public let iOSversion = "16.0"
-public let provisioningProfileApp = "2580e1ee-d47d-48b3-9166-51f2676d9e7a"
+public let provisioningProfileApp = "c4817470-1746-491c-916e-ff67f5d2bbbd"
 public let developmentTeam = "34VDSPZYU9"
 public let codeSignIdentity = "Apple Distribution: Vitalii Sosin (34VDSPZYU9)"
 public let schemesURL = "AvatarsAI"
