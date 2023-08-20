@@ -14,10 +14,11 @@ public let appName = "Avatars"
 public let rootPath = "Avatars"
 public let appPath = "App"
 public let ai = "AI"
+public let bundle = "com.sosinvitalii.avatars"
 
 // Settings
 public let iOSversion = "16.0"
-public let provisioningProfileApp = "c4817470-1746-491c-916e-ff67f5d2bbbd"
+public let provisioningProfileApp = "aeaffbe7-0873-4155-a284-32a09a7dc1af"
 public let developmentTeam = "34VDSPZYU9"
 public let codeSignIdentity = "Apple Distribution: Vitalii Sosin (34VDSPZYU9)"
 public let schemesURL = "AvatarsAI"

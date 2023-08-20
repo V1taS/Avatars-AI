@@ -13,7 +13,7 @@ let project = Project(
       name: appName,
       platform: .iOS,
       product: .app,
-      bundleId: "\(reverseOrganizationName).\(appName)",
+      bundleId: "\(bundle)",
       deploymentTarget: .iOS(targetVersion: "\(iOSversion)", devices: [.iphone, .ipad]),
       infoPlist: getMainIOSInfoPlist(),
       sources: [
