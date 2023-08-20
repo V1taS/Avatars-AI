@@ -79,7 +79,6 @@ jobs:
       env:
         APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
         PROVISIONING_PROFILE_UUID: ${{ env.PROVISIONING_PROFILE_UUID }}
-        SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
 
     - name: Upload App build artifact
       uses: actions/upload-artifact@v3
