@@ -19,7 +19,7 @@ public let bundleTest = "com.sosinvitalii.avatarsTests"
 
 // Settings
 public let iOSversion = "16.0"
-public let provisioningProfileApp = "aeaffbe7-0873-4155-a284-32a09a7dc1af"
+public let provisioningProfileApp = "2fd577ab-3b9d-444c-8646-8b315aa34c4f"
 public let developmentTeam = "34VDSPZYU9"
 public let codeSignIdentity = "Apple Distribution: Vitalii Sosin (34VDSPZYU9)"
 public let schemesURL = "AvatarsAI"
