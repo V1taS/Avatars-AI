@@ -1,5 +1,5 @@
-# Appfile
-app_identifier ENV["APP_IDENTIFIER"] # Bundle Identifier
-apple_id ENV["APPLE_ID"] # Apple ID
-team_id ENV["APP_STORE_CONNECT_TEAM_ID"] # Team ID
-team_name ENV["APP_STORE_CONNECT_TEAM_NAME"] # Team Name
+# # Appfile
+# app_identifier ENV["APP_IDENTIFIER"] # Bundle Identifier
+# apple_id ENV["APPLE_ID"] # Apple ID
+# team_id ENV["APP_STORE_CONNECT_TEAM_ID"] # Team ID
+# team_name ENV["APP_STORE_CONNECT_TEAM_NAME"] # Team Name

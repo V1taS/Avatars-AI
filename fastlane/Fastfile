@@ -25,7 +25,8 @@ platform :ios do
 
     # Добавляем вызов fastlane match для управления сертификатами и профилями подписи
     match(
-      type: "appstore"
+      type: "appstore",
+      readonly: true
     )
 
     build_ios_app(
