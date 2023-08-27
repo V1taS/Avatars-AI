@@ -74,3 +74,4 @@ ruby -v
 [![Tuist badge](https://img.shields.io/badge/Powered%20by-Tuist-blue)](https://tuist.io)
 [![Fastlane badge](https://img.shields.io/badge/Powered%20by-Fastlane-orange)](https://fastlane.tools)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/V1taS/Avatars-AI)](https://github.com/V1taS/Avatars-AI/releases)
+
