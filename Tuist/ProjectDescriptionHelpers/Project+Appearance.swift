@@ -15,6 +15,7 @@ public let rootPath = "Avatars"
 public let appPath = "App"
 public let ai = "AI"
 public let bundle = "com.sosinvitalii.avatars"
+public let bundleTest = "com.sosinvitalii.avatarsTests"
 
 // Settings
 public let iOSversion = "16.0"

@@ -10,6 +10,7 @@ public func getMainIOSInfoPlist() -> ProjectDescription.InfoPlist {
       ])
     ]),
     "MARKETING_VERSION": .string("\(marketingVersion)"),
+    "CFBundleIconName": .string("AppIcon"),
     "CFBundleShortVersionString": .string("\(marketingVersion)"),
     "CFBundleVersion": .string("\(currentProjectVersion)"),
     "CURRENT_PROJECT_VERSION": .string("\(currentProjectVersion)"),
