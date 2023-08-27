@@ -29,6 +29,11 @@ jobs:
       with:
         ruby-version: 2.7
 
+    - name: Set up fastlane
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+
     - name: Run fastlane match
       run: |
         bundle exec fastlane match appstore
@@ -36,11 +41,6 @@ jobs:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
         MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
-
-    - name: Set up fastlane
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
 
     - name: Run Danger
       env:
