@@ -1,4 +1,7 @@
 # Matchfile
 storage_mode("git")
 type("appstore")
+username(ENV["APPLE_ID"])
+app_identifier([ENV["APP_IDENTIFIER"]])
+git_branch("master")
 shallow_clone(true)

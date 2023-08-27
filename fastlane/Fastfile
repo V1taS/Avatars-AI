@@ -27,7 +27,7 @@ platform :ios do
       type: "appstore",
       app_identifier: ENV["APP_IDENTIFIER"],
       git_url: ENV["MATCH_GIT_URL"],
-      username: ENV["APPLE_DEVELOPER_USERNAME"]
+      username: ENV["APPLE_ID"]
     )
 
     build_ios_app(
