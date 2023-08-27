@@ -42,6 +42,8 @@ jobs:
         APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
         MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.APPLE_ID }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
 
     - name: Run Danger
       env:
