@@ -1,18 +1,14 @@
 default_platform(:ios)
 
 platform :ios do
-
-  # Определение базовой директории
   base_directory = ENV['GITHUB_WORKSPACE'] || "." # Если GITHUB_WORKSPACE не определен, используем текущую директорию
 
   desc "Replace API keys in SecretsAPI.swift"
   lane :replace_api_keys do
-    # Извлекаем ключи напрямую, так как они уже установлены GitHub Actions
     api_key_yandex_metrica = ENV["API_KEY_YANDEX_METRICA"]
     api_key_apphud = ENV["API_KEY_APPHUD"]
     fancy_backend = ENV["FANCY_BACKEND"]
 
-    # Заменяем ключи в файле
     replace_api_key_in_file(
       file_path: "#{base_directory}/Avatars/App/Sources/System/SecretsAPI.swift",
       api_key_yandex_metrica: api_key_yandex_metrica,
@@ -26,16 +22,20 @@ platform :ios do
     # Заменяем API-ключи перед сборкой
     replace_api_keys
 
+    # Добавляем вызов fastlane match для управления сертификатами и профилями подписи
+    match(
+      type: "appstore",
+      app_identifier: ENV["APP_IDENTIFIER"],
+      git_url: ENV["MATCH_GIT_URL"],
+      username: ENV["APPLE_DEVELOPER_USERNAME"]
+    )
+
     build_ios_app(
       workspace: "Avatars.xcworkspace",
       scheme: "Avatars",
       export_method: "app-store",
       export_options: {
-        provisioningProfiles: {
-          ENV["APP_IDENTIFIER"] => ENV["PROVISIONING_PROFILE_UUID"]
-        },
-        signingStyle: "manual",
-        signingCertificate: ENV["SIGNING_CERTIFICATE"]
+        signingStyle: "automatic"
       }
     )
   end
@@ -73,7 +73,6 @@ platform :ios do
     api_key_apphud = options[:api_key_apphud]
     fancy_backend = options[:fancy_backend]
 
-    # Заменяем каждый ключ в файле
     text = File.read(file_path)
     text.gsub!(/apiKeyYandexMetrica = ".*"/, "apiKeyYandexMetrica = \"#{api_key_yandex_metrica}\"")
     text.gsub!(/apiKeyApphud = ".*"/, "apiKeyApphud = \"#{api_key_apphud}\"")

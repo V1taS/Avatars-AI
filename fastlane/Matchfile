@@ -1,0 +1,4 @@
+# Matchfile
+storage_mode("git")
+type("appstore")
+shallow_clone(true)
