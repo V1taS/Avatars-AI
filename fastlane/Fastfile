@@ -24,10 +24,7 @@ platform :ios do
 
     # Добавляем вызов fastlane match для управления сертификатами и профилями подписи
     match(
-      type: "appstore",
-      app_identifier: ENV["APP_IDENTIFIER"],
-      git_url: ENV["MATCH_GIT_URL"],
-      username: ENV["APPLE_ID"]
+      type: "appstore"
     )
 
     build_ios_app(
