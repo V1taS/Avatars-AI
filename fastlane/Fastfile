@@ -23,10 +23,18 @@ platform :ios do
     # Заменяем API-ключи перед сборкой
     replace_api_keys
 
-    # Добавляем вызов fastlane match для управления сертификатами и профилями подписи
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_content: ENV["APP_STORE_CONNECT_KEY"],
+      in_house: false,
+      is_key_content_base64: false
+    )
+
     match(
       type: "appstore",
-      readonly: true
+      readonly: true,
+      api_key: api_key
     )
 
     build_ios_app(

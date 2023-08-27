@@ -38,12 +38,12 @@ jobs:
       run: |
         bundle exec fastlane match appstore
       env:
-        APPLE_ID: ${{ secrets.APPLE_ID }}
         APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
         MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        FASTLANE_USER: ${{ secrets.APPLE_ID }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }}
 
     - name: Run Danger
       env:
