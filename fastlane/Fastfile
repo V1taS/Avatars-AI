@@ -37,7 +37,7 @@ platform :ios do
       type: "appstore",
       readonly: true,
       keychain_name: "login.keychain-db",
-      keychain_password: ENV["FASTLANE_PASSWORD"],
+      keychain_password: ENV["MATCH_PASSWORD"],
       api_key: api_key
     )
   end
