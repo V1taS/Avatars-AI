@@ -20,6 +20,25 @@ jobs:
         echo "API_KEY_APPHUD=${{ secrets.API_KEY_APPHUD }}" >> $GITHUB_ENV
         echo "FANCY_BACKEND=${{ secrets.FANCY_BACKEND }}" >> $GITHUB_ENV
 
+    - name: Import certificate and provisioning profiles
+      env:
+        SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
+        IOS_PROVISIONING_PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      run: |
+        echo "$SIGNING_CERTIFICATE" | base64 --decode > /tmp/Certificate.p12
+        echo "$IOS_PROVISIONING_PROFILE" | base64 --decode > /tmp/Profile.mobileprovision
+        security create-keychain -p "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
+        security default-keychain -s ~/Library/Keychains/build.keychain
+        security unlock-keychain -p "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
+        security set-keychain-settings -lut 3600 ~/Library/Keychains/build.keychain
+        security import /tmp/Certificate.p12 -k ~/Library/Keychains/build.keychain -P "" -T /usr/bin/codesign -A
+        security set-key-partition-list -S apple-tool:,apple: -s -k "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        cp /tmp/Profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+        PROVISIONING_PROFILE_UUID=$(grep -a -A 1 "UUID" /tmp/Profile.mobileprovision | tail -1 | awk -F '<string>' '{print $2}' | awk -F '</string>' '{print $1}')
+        echo "PROVISIONING_PROFILE_UUID=$PROVISIONING_PROFILE_UUID" >> $GITHUB_ENV
+
     - name: Set up Tuist
       run: |
         curl -Ls https://install.tuist.io | bash
@@ -33,17 +52,6 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
-
-    - name: Run fastlane match
-      run: |
-        bundle exec fastlane match appstore
-      env:
-        APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
-        MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-        APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-        APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }}
 
     - name: Run Danger
       env:
@@ -67,7 +75,8 @@ jobs:
         bundle exec fastlane build
       env:
         APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        PROVISIONING_PROFILE_UUID: ${{ env.PROVISIONING_PROFILE_UUID }}
+        SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
 
     - name: Upload App build artifact
       uses: actions/upload-artifact@v3

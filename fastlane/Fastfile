@@ -1,15 +1,18 @@
-# Fastfile
 default_platform(:ios)
 
 platform :ios do
+
+  # Определение базовой директории
   base_directory = ENV['GITHUB_WORKSPACE'] || "." # Если GITHUB_WORKSPACE не определен, используем текущую директорию
 
   desc "Replace API keys in SecretsAPI.swift"
   lane :replace_api_keys do
+    # Извлекаем ключи напрямую, так как они уже установлены GitHub Actions
     api_key_yandex_metrica = ENV["API_KEY_YANDEX_METRICA"]
     api_key_apphud = ENV["API_KEY_APPHUD"]
     fancy_backend = ENV["FANCY_BACKEND"]
 
+    # Заменяем ключи в файле
     replace_api_key_in_file(
       file_path: "#{base_directory}/Avatars/App/Sources/System/SecretsAPI.swift",
       api_key_yandex_metrica: api_key_yandex_metrica,
@@ -18,34 +21,9 @@ platform :ios do
     )
   end
 
-  desc "Setup CI environment"
-  lane :setup_ci_environment do
-    setup_ci
-  end
-
-  desc "Fetch certificates and provisioning profiles"
-  lane :fetch_certificates do
-    api_key = app_store_connect_api_key(
-      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
-      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-      key_content: ENV["APP_STORE_CONNECT_KEY"],
-      in_house: false,
-      is_key_content_base64: false
-    )
-
-    match(
-      type: "appstore",
-      readonly: true,
-      keychain_name: "login.keychain-db",
-      keychain_password: ENV["MATCH_PASSWORD"],
-      api_key: api_key
-    )
-  end
-
   desc "Build the app"
   lane :build do
-    setup_ci_environment
-    fetch_certificates
+    # Заменяем API-ключи перед сборкой
     replace_api_keys
 
     build_ios_app(
@@ -53,7 +31,11 @@ platform :ios do
       scheme: "Avatars",
       export_method: "app-store",
       export_options: {
-        signingStyle: "automatic"
+        provisioningProfiles: {
+          ENV["APP_IDENTIFIER"] => ENV["PROVISIONING_PROFILE_UUID"]
+        },
+        signingStyle: "manual",
+        signingCertificate: ENV["SIGNING_CERTIFICATE"]
       }
     )
   end
@@ -91,6 +73,7 @@ platform :ios do
     api_key_apphud = options[:api_key_apphud]
     fancy_backend = options[:fancy_backend]
 
+    # Заменяем каждый ключ в файле
     text = File.read(file_path)
     text.gsub!(/apiKeyYandexMetrica = ".*"/, "apiKeyYandexMetrica = \"#{api_key_yandex_metrica}\"")
     text.gsub!(/apiKeyApphud = ".*"/, "apiKeyApphud = \"#{api_key_apphud}\"")
