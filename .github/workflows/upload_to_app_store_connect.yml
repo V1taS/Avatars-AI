@@ -65,13 +65,6 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
-    
-    - name: Run fastlane match
-      run: |
-        bundle exec fastlane match appstore
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
 
     - name: Tuist fetch
       run: |
@@ -102,7 +95,6 @@ jobs:
         bundle exec fastlane build
       env:
         APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         PROVISIONING_PROFILE_UUID: ${{ env.PROVISIONING_PROFILE_UUID }}
 
     - name: Upload App build artifact
@@ -129,7 +121,9 @@ jobs:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
         APP_STORE_CONNECT_TEAM_NAME: ${{ secrets.APP_STORE_CONNECT_TEAM_NAME }}
-        FASTLANE_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        ITC_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
+        ITC_TEAM_NAME: ${{ secrets.APP_STORE_CONNECT_TEAM_NAME }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
     - name: Clean up App Store Connect API key
       run: |
@@ -155,7 +149,7 @@ jobs:
     #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     #     TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     #   run: |
-    #     python Scripts/send_telegram.py "😍 Release iOS Avatars AI ${{ env.MARKETING_VERSION }} 😍
+    #     python Scripts/send_telegram.py "😍 Release iOS ${{ env.MARKETING_VERSION }} 😍
     #     Автор: ${{ github.actor }}
     #     Сборка №: ${{ env.MARKETING_VERSION }}/${{ env.CURRENT_PROJECT_VERSION }}
         
