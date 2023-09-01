@@ -54,6 +54,16 @@ jobs:
           exit 1
         fi
 
+    - name: Check if the correct signing certificate is available 🤔🤔🤔🤔🤔
+      run: |
+        CERTIFICATE_HASH=$(security find-identity -v -p codesigning | grep "Apple Distribution: Vitalii Sosin" | awk '{print $2}')
+        if [ "$CERTIFICATE_HASH" = "${{ secrets.SIGNING_CERTIFICATE }}" ]; then
+          echo "The correct signing certificate is available."
+        else
+         echo "The correct signing certificate is NOT available."
+         exit 1
+        fi
+
     - name: Set up Tuist
       run: |
         curl -Ls https://install.tuist.io | bash
