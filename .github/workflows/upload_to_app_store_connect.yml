@@ -129,7 +129,6 @@ jobs:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
         APP_STORE_CONNECT_TEAM_NAME: ${{ secrets.APP_STORE_CONNECT_TEAM_NAME }}
-        APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
         FASTLANE_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
     - name: Clean up App Store Connect API key
