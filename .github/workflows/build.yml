@@ -25,6 +25,7 @@ jobs:
         SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
         IOS_PROVISIONING_PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
       run: |
         echo "$SIGNING_CERTIFICATE" | base64 --decode > /tmp/Certificate.p12
         echo "$IOS_PROVISIONING_PROFILE" | base64 --decode > /tmp/Profile.mobileprovision
@@ -34,38 +35,12 @@ jobs:
         security set-keychain-settings -lut 3600 ~/Library/Keychains/build.keychain
         security import /tmp/Certificate.p12 -k ~/Library/Keychains/build.keychain -P "" -T /usr/bin/codesign -A
         security set-key-partition-list -S apple-tool:,apple: -s -k "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
-        CERTIFICATE_HASH=$(security find-identity -v -p codesigning | grep "Apple Distribution: Vitalii Sosin" | awk '{print $2}')
+        CERTIFICATE_HASH=$(security find-identity -v -p codesigning | grep "$SIGNING_IDENTITY" | awk '{print $2}')
         echo "CERTIFICATE_HASH=$CERTIFICATE_HASH" >> $GITHUB_ENV
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
         PROVISIONING_PROFILE_UUID=$(grep -a -A 1 "UUID" /tmp/Profile.mobileprovision | tail -1 | awk -F '<string>' '{print $2}' | awk -F '</string>' '{print $1}')
         cp /tmp/Profile.mobileprovision "$HOME/Library/MobileDevice/Provisioning Profiles/$PROVISIONING_PROFILE_UUID.mobileprovision"
         echo "PROVISIONING_PROFILE_UUID=$PROVISIONING_PROFILE_UUID" >> $GITHUB_ENV
-
-    - name: List Provisioning Profiles 😍😍😍😍😍
-      run: ls -la "$HOME/Library/MobileDevice/Provisioning Profiles/"
-
-    - name: List available signing certificates 😍😍😍😍😍
-      run: security find-identity -v -p codesigning
-
-    - name: Check if provisioning profile is imported 😍😍😍😍😍
-      run: |
-        if [[ -f "$HOME/Library/MobileDevice/Provisioning Profiles/${{ env.PROVISIONING_PROFILE_UUID }}.mobileprovision" ]]; then
-          echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} exists."
-        else
-          echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} does not exist."
-          exit 1
-        fi
-
-    - name: Check if the correct signing certificate is available 🤔🤔🤔🤔🤔
-      run: |
-        CERTIFICATE_HASH=$(security find-identity -v -p codesigning | grep "Apple Distribution: Vitalii Sosin" | awk '{print $2}')
-        echo "CERTIFICATE_HASH is $CERTIFICATE_HASH"
-        if [ -z "$CERTIFICATE_HASH" ]; then
-          echo "The correct signing certificate is NOT available."
-          exit 1
-        else  
-          echo "The correct signing certificate is available."
-        fi
 
     - name: Set up Tuist
       run: |
