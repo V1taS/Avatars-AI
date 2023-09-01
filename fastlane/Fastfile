@@ -39,7 +39,7 @@ platform :ios do
       codesigning_identity: ENV["CERTIFICATE_HASH"],
       export_options: {
         provisioningProfiles: {
-          ENV["APP_IDENTIFIER"] => ENV["PROVISIONING_PROFILE_UUID"]
+          "com.sosinvitalii.avatars" => "2241614e-9aa1-4903-b097-7ecfb56ecfc2"
         },
         signingStyle: "manual",
         signingCertificate: ENV["SIGNING_CERTIFICATE"]
