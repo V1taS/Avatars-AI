@@ -39,6 +39,9 @@ jobs:
         PROVISIONING_PROFILE_UUID=$(grep -a -A 1 "UUID" /tmp/Profile.mobileprovision | tail -1 | awk -F '<string>' '{print $2}' | awk -F '</string>' '{print $1}')
         echo "PROVISIONING_PROFILE_UUID=$PROVISIONING_PROFILE_UUID" >> $GITHUB_ENV
 
+    - name: List Provisioning Profiles 😍😍😍😍😍
+      run: ls -la "$HOME/Library/MobileDevice/Provisioning Profiles/"
+
     - name: List available signing certificates 😍😍😍😍😍
       run: security find-identity -v -p codesigning
 
