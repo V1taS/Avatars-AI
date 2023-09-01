@@ -103,6 +103,7 @@ jobs:
       env:
         APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        PROVISIONING_PROFILE_UUID: ${{ env.PROVISIONING_PROFILE_UUID }}
 
     - name: Upload App build artifact
       uses: actions/upload-artifact@v3
@@ -128,8 +129,8 @@ jobs:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
         APP_STORE_CONNECT_TEAM_NAME: ${{ secrets.APP_STORE_CONNECT_TEAM_NAME }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-        SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
+        APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
+        FASTLANE_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
     - name: Clean up App Store Connect API key
       run: |
