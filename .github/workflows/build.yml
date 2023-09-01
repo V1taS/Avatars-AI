@@ -39,20 +39,20 @@ jobs:
         cp /tmp/Profile.mobileprovision "$HOME/Library/MobileDevice/Provisioning Profiles/$PROVISIONING_PROFILE_UUID.mobileprovision"
         echo "PROVISIONING_PROFILE_UUID=$PROVISIONING_PROFILE_UUID" >> $GITHUB_ENV
 
-    - name: List Provisioning Profiles 😍😍😍😍😍
-      run: ls -la "$HOME/Library/MobileDevice/Provisioning Profiles/"
+    # - name: List Provisioning Profiles 😍😍😍😍😍
+    #   run: ls -la "$HOME/Library/MobileDevice/Provisioning Profiles/"
 
-    - name: List available signing certificates 😍😍😍😍😍
-      run: security find-identity -v -p codesigning
+    # - name: List available signing certificates 😍😍😍😍😍
+    #   run: security find-identity -v -p codesigning
 
-    - name: Check if provisioning profile is imported 😍😍😍😍😍
-      run: |
-        if [[ -f "$HOME/Library/MobileDevice/Provisioning Profiles/${{ env.PROVISIONING_PROFILE_UUID }}.mobileprovision" ]]; then
-          echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} exists."
-        else
-          echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} does not exist."
-          exit 1
-        fi
+    # - name: Check if provisioning profile is imported 😍😍😍😍😍
+    #   run: |
+    #     if [[ -f "$HOME/Library/MobileDevice/Provisioning Profiles/${{ env.PROVISIONING_PROFILE_UUID }}.mobileprovision" ]]; then
+    #       echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} exists."
+    #     else
+    #       echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} does not exist."
+    #       exit 1
+    #     fi
 
     - name: Set up Tuist
       run: |
