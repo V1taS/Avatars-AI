@@ -75,7 +75,7 @@ jobs:
       run: security find-identity -v -p codesigning
 
     - name: Verify match profiles for App Store 😍😍😍😍😍
-      run: bundle exec fastlane match verify --type appstore
+      run: bundle exec fastlane verify_match_appstore
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 

@@ -11,6 +11,11 @@ default_platform(:ios)
 
 platform :ios do
 
+  desc "Verify Match profiles for App Store"
+  lane :verify_match_appstore do
+    match(type: "appstore", readonly: true)
+  end
+
   # Определение базовой директории
   base_directory = ENV['GITHUB_WORKSPACE'] || "." # Если GITHUB_WORKSPACE не определен, используем текущую директорию
 
