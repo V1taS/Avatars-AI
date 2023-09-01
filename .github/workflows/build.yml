@@ -35,8 +35,8 @@ jobs:
         security import /tmp/Certificate.p12 -k ~/Library/Keychains/build.keychain -P "" -T /usr/bin/codesign -A
         security set-key-partition-list -S apple-tool:,apple: -s -k "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-        cp /tmp/Profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
         PROVISIONING_PROFILE_UUID=$(grep -a -A 1 "UUID" /tmp/Profile.mobileprovision | tail -1 | awk -F '<string>' '{print $2}' | awk -F '</string>' '{print $1}')
+        cp /tmp/Profile.mobileprovision "~/Library/MobileDevice/Provisioning\ Profiles/$PROVISIONING_PROFILE_UUID.mobileprovision"
         echo "PROVISIONING_PROFILE_UUID=$PROVISIONING_PROFILE_UUID" >> $GITHUB_ENV
 
     - name: List Provisioning Profiles 😍😍😍😍😍
