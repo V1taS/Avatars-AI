@@ -1,20 +1,6 @@
 default_platform(:ios)
 
- # Вывод значений переменных среды для дебага
- puts "Debugging environment variables:"
- puts "APP_IDENTIFIER: #{ENV['APP_IDENTIFIER']}"
- puts "PROVISIONING_PROFILE_UUID: #{ENV['PROVISIONING_PROFILE_UUID']}"
- puts "SIGNING_CERTIFICATE: #{ENV['SIGNING_CERTIFICATE']}"
- puts "API_KEY_YANDEX_METRICA: #{ENV['API_KEY_YANDEX_METRICA']}"
- puts "API_KEY_APPHUD: #{ENV['API_KEY_APPHUD']}"
- puts "FANCY_BACKEND: #{ENV['FANCY_BACKEND']}"
-
 platform :ios do
-
-  desc "Verify Match profiles for App Store"
-  lane :verify_match_appstore do
-    match(type: "appstore", readonly: true)
-  end
 
   # Определение базовой директории
   base_directory = ENV['GITHUB_WORKSPACE'] || "." # Если GITHUB_WORKSPACE не определен, используем текущую директорию

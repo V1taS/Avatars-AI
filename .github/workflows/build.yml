@@ -39,6 +39,18 @@ jobs:
         PROVISIONING_PROFILE_UUID=$(grep -a -A 1 "UUID" /tmp/Profile.mobileprovision | tail -1 | awk -F '<string>' '{print $2}' | awk -F '</string>' '{print $1}')
         echo "PROVISIONING_PROFILE_UUID=$PROVISIONING_PROFILE_UUID" >> $GITHUB_ENV
 
+    - name: List available signing certificates 😍😍😍😍😍
+      run: security find-identity -v -p codesigning
+
+    - name: Check if provisioning profile is imported 😍😍😍😍😍
+      run: |
+        if [[ -f "$HOME/Library/MobileDevice/Provisioning Profiles/${{ env.PROVISIONING_PROFILE_UUID }}.mobileprovision" ]]; then
+          echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} exists."
+        else
+          echo "Provisioning profile ${{ env.PROVISIONING_PROFILE_UUID }} does not exist."
+          exit 1
+        fi
+
     - name: Set up Tuist
       run: |
         curl -Ls https://install.tuist.io | bash
@@ -69,15 +81,6 @@ jobs:
     # - name: Run tests
     #   run: |
     #     bundle exec fastlane test
-
-# Добавьте эти два шага для выполнения команд
-    - name: List available signing certificates 😍😍😍😍😍
-      run: security find-identity -v -p codesigning
-
-    - name: Verify match profiles for App Store 😍😍😍😍😍
-      run: bundle exec fastlane verify_match_appstore
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
     - name: Build and archive the app
       run: |
