@@ -31,6 +31,7 @@ platform :ios do
       workspace: "Avatars.xcworkspace",
       scheme: "Avatars",
       export_method: "app-store",
+      signingCertificate: "Apple Distribution: Vitalii Sosin (34VDSPZYU9)",
       export_options: {
         provisioningProfiles: {
           ENV["APP_IDENTIFIER"] => ENV["PROVISIONING_PROFILE_UUID"]
