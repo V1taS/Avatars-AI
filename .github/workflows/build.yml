@@ -34,6 +34,8 @@ jobs:
         security set-keychain-settings -lut 3600 ~/Library/Keychains/build.keychain
         security import /tmp/Certificate.p12 -k ~/Library/Keychains/build.keychain -P "" -T /usr/bin/codesign -A
         security set-key-partition-list -S apple-tool:,apple: -s -k "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
+        CERTIFICATE_HASH=$(security find-identity -v -p codesigning | grep "Apple Distribution: Vitalii Sosin" | awk '{print $2}')
+        echo "CERTIFICATE_HASH=$CERTIFICATE_HASH" >> $GITHUB_ENV
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
         PROVISIONING_PROFILE_UUID=$(grep -a -A 1 "UUID" /tmp/Profile.mobileprovision | tail -1 | awk -F '<string>' '{print $2}' | awk -F '</string>' '{print $1}')
         cp /tmp/Profile.mobileprovision "$HOME/Library/MobileDevice/Provisioning Profiles/$PROVISIONING_PROFILE_UUID.mobileprovision"
