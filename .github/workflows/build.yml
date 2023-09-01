@@ -74,8 +74,8 @@ jobs:
     - name: List available signing certificates 😍😍😍😍😍
       run: security find-identity -v -p codesigning
 
-    - name: Verify match profiles 😍😍😍😍😍
-      run: bundle exec fastlane match verify
+    - name: Verify match profiles for App Store 😍😍😍😍😍
+      run: bundle exec fastlane match verify --type appstore
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
