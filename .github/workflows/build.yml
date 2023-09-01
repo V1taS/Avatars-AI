@@ -70,6 +70,15 @@ jobs:
     #   run: |
     #     bundle exec fastlane test
 
+# Добавьте эти два шага для выполнения команд
+    - name: List available signing certificates 😍😍😍😍😍
+      run: security find-identity -v -p codesigning
+
+    - name: Verify match profiles 😍😍😍😍😍
+      run: bundle exec fastlane match verify
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
     - name: Build and archive the app
       run: |
         bundle exec fastlane build
