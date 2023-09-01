@@ -6,6 +6,5 @@
 //
 
 import Foundation
-import FancyNetwork
 
 protocol ApplicationServices {}

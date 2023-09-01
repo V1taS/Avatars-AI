@@ -1,5 +1,5 @@
 
-# Avatars AI
+# Avatars AI (SwiftUI)
 
 ## SetUP
 
@@ -74,4 +74,4 @@ ruby -v
 [![Tuist badge](https://img.shields.io/badge/Powered%20by-Tuist-blue)](https://tuist.io)
 [![Fastlane badge](https://img.shields.io/badge/Powered%20by-Fastlane-orange)](https://fastlane.tools)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/V1taS/Avatars-AI)](https://github.com/V1taS/Avatars-AI/releases)
-[![Build and sign iOS app](https://github.com/V1taS/Avatars-AI/actions/workflows/upload_to_app_store_connect.yml/badge.svg)](https://github.com/V1taS/Avatars-AI/actions/workflows/upload_to_app_store_connect.yml)
+

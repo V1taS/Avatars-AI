@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "appstore.png",
       "idiom" : "universal"
     }
   ],

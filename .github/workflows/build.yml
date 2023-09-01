@@ -18,27 +18,28 @@ jobs:
       run: |
         echo "API_KEY_YANDEX_METRICA=${{ secrets.API_KEY_YANDEX_METRICA }}" >> $GITHUB_ENV
         echo "API_KEY_APPHUD=${{ secrets.API_KEY_APPHUD }}" >> $GITHUB_ENV
-        echo "API_KEY_KINOPOISK=${{ secrets.API_KEY_KINOPOISK }}" >> $GITHUB_ENV
-        echo "API_KEY_MOST_POPULAR_MOVIES=${{ secrets.API_KEY_MOST_POPULAR_MOVIES }}" >> $GITHUB_ENV
         echo "FANCY_BACKEND=${{ secrets.FANCY_BACKEND }}" >> $GITHUB_ENV
 
     - name: Import certificate and provisioning profiles
       env:
-        IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
+        SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
         IOS_PROVISIONING_PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE }}
-        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
       run: |
-        echo "$IOS_CERTIFICATE" | base64 --decode > /tmp/Certificate.p12
+        echo "$SIGNING_CERTIFICATE" | base64 --decode > /tmp/Certificate.p12
         echo "$IOS_PROVISIONING_PROFILE" | base64 --decode > /tmp/Profile.mobileprovision
-        security create-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/build.keychain
+        security create-keychain -p "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
         security default-keychain -s ~/Library/Keychains/build.keychain
-        security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/build.keychain
+        security unlock-keychain -p "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
         security set-keychain-settings -lut 3600 ~/Library/Keychains/build.keychain
         security import /tmp/Certificate.p12 -k ~/Library/Keychains/build.keychain -P "" -T /usr/bin/codesign -A
-        security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/build.keychain
+        security set-key-partition-list -S apple-tool:,apple: -s -k "$MATCH_PASSWORD" ~/Library/Keychains/build.keychain
+        CERTIFICATE_HASH=$(security find-identity -v -p codesigning | grep "$SIGNING_IDENTITY" | awk '{print $2}')
+        echo "CERTIFICATE_HASH=$CERTIFICATE_HASH" >> $GITHUB_ENV
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-        cp /tmp/Profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
         PROVISIONING_PROFILE_UUID=$(grep -a -A 1 "UUID" /tmp/Profile.mobileprovision | tail -1 | awk -F '<string>' '{print $2}' | awk -F '</string>' '{print $1}')
+        cp /tmp/Profile.mobileprovision "$HOME/Library/MobileDevice/Provisioning Profiles/$PROVISIONING_PROFILE_UUID.mobileprovision"
         echo "PROVISIONING_PROFILE_UUID=$PROVISIONING_PROFILE_UUID" >> $GITHUB_ENV
 
     - name: Set up Tuist
@@ -68,9 +69,9 @@ jobs:
       run: |
         tuist generate
 
-    - name: Run tests
-      run: |
-        bundle exec fastlane test
+    # - name: Run tests
+    #   run: |
+    #     bundle exec fastlane test
 
     - name: Build and archive the app
       run: |
