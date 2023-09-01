@@ -1,5 +1,14 @@
 default_platform(:ios)
 
+ # Вывод значений переменных среды для дебага
+ puts "Debugging environment variables:"
+ puts "APP_IDENTIFIER: #{ENV['APP_IDENTIFIER']}"
+ puts "PROVISIONING_PROFILE_UUID: #{ENV['PROVISIONING_PROFILE_UUID']}"
+ puts "SIGNING_CERTIFICATE: #{ENV['SIGNING_CERTIFICATE']}"
+ puts "API_KEY_YANDEX_METRICA: #{ENV['API_KEY_YANDEX_METRICA']}"
+ puts "API_KEY_APPHUD: #{ENV['API_KEY_APPHUD']}"
+ puts "FANCY_BACKEND: #{ENV['FANCY_BACKEND']}"
+
 platform :ios do
 
   # Определение базовой директории
@@ -23,15 +32,6 @@ platform :ios do
 
   desc "Build the app"
   lane :build do
-
-    # Вывод значений переменных среды для дебага
-    puts "Debugging environment variables:"
-    puts "APP_IDENTIFIER: #{ENV['APP_IDENTIFIER']}"
-    puts "PROVISIONING_PROFILE_UUID: #{ENV['PROVISIONING_PROFILE_UUID']}"
-    puts "SIGNING_CERTIFICATE: #{ENV['SIGNING_CERTIFICATE']}"
-    puts "API_KEY_YANDEX_METRICA: #{ENV['API_KEY_YANDEX_METRICA']}"
-    puts "API_KEY_APPHUD: #{ENV['API_KEY_APPHUD']}"
-    puts "FANCY_BACKEND: #{ENV['FANCY_BACKEND']}"
 
     # Заменяем API-ключи перед сборкой
     replace_api_keys
