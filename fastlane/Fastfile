@@ -27,22 +27,16 @@ platform :ios do
     # Заменяем API-ключи перед сборкой
     replace_api_keys
 
-    # Выводим переменные для отладки
-    puts "Debug: APP_IDENTIFIER=#{ENV['APP_IDENTIFIER']}"
-    puts "Debug: PROVISIONING_PROFILE_UUID=#{ENV['PROVISIONING_PROFILE_UUID']}"
-    puts "Debug: SIGNING_CERTIFICATE=#{ENV['SIGNING_CERTIFICATE']}"
-
     build_ios_app(
       workspace: "Avatars.xcworkspace",
       scheme: "Avatars",
       export_method: "app-store",
-      codesigning_identity: ENV["CERTIFICATE_HASH"],
       export_options: {
         provisioningProfiles: {
-          "com.sosinvitalii.avatars" => "2241614e-9aa1-4903-b097-7ecfb56ecfc2"
+          ENV["APP_IDENTIFIER"] => ENV["PROVISIONING_PROFILE_UUID"]
         },
         signingStyle: "manual",
-        signingCertificate: ENV["SIGNING_CERTIFICATE"]
+        signingCertificate: ENV["CERTIFICATE_HASH"]
       }
     )
   end
