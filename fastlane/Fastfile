@@ -27,6 +27,11 @@ platform :ios do
     # Заменяем API-ключи перед сборкой
     replace_api_keys
 
+    # Выводим переменные для отладки
+    puts "Debug: APP_IDENTIFIER=#{ENV['APP_IDENTIFIER']}"
+    puts "Debug: PROVISIONING_PROFILE_UUID=#{ENV['PROVISIONING_PROFILE_UUID']}"
+    puts "Debug: SIGNING_CERTIFICATE=#{ENV['SIGNING_CERTIFICATE']}"
+
     build_ios_app(
       workspace: "Avatars.xcworkspace",
       scheme: "Avatars",
