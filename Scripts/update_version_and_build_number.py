@@ -1,7 +1,7 @@
 import os
 import json
 
-VERSIONS_FILE = "versions.json"
+VERSIONS_FILE = "avatars_versions.json"
 
 def update_versions():
     if os.path.exists(VERSIONS_FILE):

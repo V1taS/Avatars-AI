@@ -1,7 +1,7 @@
 import json
 import re
 
-with open("versions.json", "r") as f:
+with open("avatars_versions.json", "r") as f:
     versions = json.load(f)
 
 marketing_version = versions["marketing_version"]
