@@ -1,4 +1,3 @@
-
 # Avatars AI (SwiftUI)
 
 ## SetUP
