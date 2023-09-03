@@ -8,7 +8,7 @@ def update_versions():
         with open(VERSIONS_FILE, "r") as f:
             versions = json.load(f)
     else:
-        versions = {"marketing_version": "777.5", "current_project_version": "160"}
+        versions = {"marketing_version": "1.0", "current_project_version": "1"}
 
     # Увеличиваем значение marketing_version
     major, minor = map(int, versions["marketing_version"].split("."))
