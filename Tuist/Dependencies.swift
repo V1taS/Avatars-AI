@@ -3,8 +3,9 @@ import ProjectDescription
 let dependencies = Dependencies(
   swiftPackageManager: SwiftPackageManagerDependencies(
     [
+//      .local(path: "../Fancy/FancySwiftUI"),
       .remote(url: "https://github.com/V1taS/FancySwiftUI.git",
-              requirement: .exact("1.2")),
+              requirement: .exact("1.7")),
 //      .remote(url: "https://github.com/V1taS/FancyNetwork.git",
 //              requirement: .exact("1.1")),
 //      .remote(url: "https://github.com/V1taS/FancyNotifications.git",
