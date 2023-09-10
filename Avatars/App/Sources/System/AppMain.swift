@@ -14,7 +14,7 @@ struct AppMain: App {
   var body: some Scene {
     WindowGroup {
       RootView(
-        store: Store(initialState: RootFeature.State(listAvatarCardsState: .init())) {
+        store: Store(initialState: RootFeature.State(listAvatarCardsState: .init(uploadPhotoFeatureState: .init()))) {
           RootFeature()
         }
       )

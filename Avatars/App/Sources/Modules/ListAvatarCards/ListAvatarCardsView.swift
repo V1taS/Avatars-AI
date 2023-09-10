@@ -43,7 +43,7 @@ struct ListAvatarCardsView: View {
 struct ListAvatarCardsView_Previews: PreviewProvider {
   static var previews: some View {
     ListAvatarCardsView(
-      store: Store(initialState: ListAvatarCardsFeature.State()) {
+      store: Store(initialState: ListAvatarCardsFeature.State(uploadPhotoFeatureState: .init())) {
         ListAvatarCardsFeature()
       }
     )

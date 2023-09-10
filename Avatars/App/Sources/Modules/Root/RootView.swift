@@ -34,7 +34,7 @@ struct RootView_Previews: PreviewProvider {
   static var previews: some View {
     RootView(
       store: Store(initialState: RootFeature.State(
-        listAvatarCardsState: .init()
+        listAvatarCardsState: .init(uploadPhotoFeatureState: .init())
       )) {
         RootFeature()
       }

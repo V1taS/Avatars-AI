@@ -23,8 +23,6 @@ struct RootFeature: Reducer {
     case let .listAvatarCardsAction(listAvatarCardsAction):
       let childEffect = listAvatarCardsFeature.reduce(into: &state.listAvatarCardsState, action: listAvatarCardsAction)
       return childEffect.map(Action.listAvatarCardsAction)
-    default:
-      return .none
     }
   }
 }
