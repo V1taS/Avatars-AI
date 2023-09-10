@@ -14,21 +14,28 @@ struct ListAvatarCardsView: View {
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      ZStack {
-        RoundedRectangle(cornerRadius: 24, style: .circular)
-          .fill(LinearGradient(
-            gradient: Gradient(colors: [Color.gray, Color.gray]),
-            startPoint: .top,
-            endPoint: .bottom
-          ))
-          .aspectRatio(1.618, contentMode: .fit)
+      VStack(spacing: 32) {
+        AvatarCardView(
+          title: AvatarsStrings.Localizable.humans,
+          description: AvatarsStrings.Localizable.tryYourselfInDifferentLooks,
+          avatarLeftName: AvatarsAsset.avatarCardLeft.name,
+          avatarCentertName: AvatarsAsset.avatarCardCenter.name,
+          avatarRightName: AvatarsAsset.avatarCardRight.name,
+          titleButton: AvatarsStrings.Localizable.create,
+          actionButton: nil
+        )
         
-          .shadow(color: .black, radius: 4, x: 4, y: 4)
-        
-        VStack {
-          Text("sdvgdsv")
-        }
+        AvatarCardView(
+          title: AvatarsStrings.Localizable.dogsAndCats,
+          description: AvatarsStrings.Localizable.makeYourPetASuperhero,
+          avatarLeftName: AvatarsAsset.avatarAnimalCardLeft.name,
+          avatarCentertName: AvatarsAsset.avatarAnimalCardCenter.name,
+          avatarRightName: AvatarsAsset.avatarAnimalCardRight.name,
+          titleButton: AvatarsStrings.Localizable.create,
+          actionButton: nil
+        )
       }
+      .padding(24)
     }
   }
 }

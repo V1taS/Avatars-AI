@@ -9,22 +9,21 @@
 import ComposableArchitecture
 
 struct RootFeature: Reducer {
+  private let listAvatarCardsFeature = ListAvatarCardsFeature()
+  
   struct State: Equatable {
-    var count = 0
+    var listAvatarCardsState: ListAvatarCardsFeature.State
   }
   enum Action {
-    case decrementButtonTapped
-    case incrementButtonTapped
+    case listAvatarCardsAction(ListAvatarCardsFeature.Action)
   }
   
   func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
-    case .decrementButtonTapped:
-      state.count -= 1
-      return .none
-      
-    case .incrementButtonTapped:
-      state.count += 1
+    case let .listAvatarCardsAction(listAvatarCardsAction):
+      let childEffect = listAvatarCardsFeature.reduce(into: &state.listAvatarCardsState, action: listAvatarCardsAction)
+      return childEffect.map(Action.listAvatarCardsAction)
+    default:
       return .none
     }
   }

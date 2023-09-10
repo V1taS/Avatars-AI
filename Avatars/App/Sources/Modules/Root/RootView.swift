@@ -14,23 +14,17 @@ struct RootView: View {
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      List {
-        AvatarCardView(
-          title: "Humans",
-          description: "Try yourself in different looks",
-          avatarLeftName: "avatar_card_left",
-          avatarCentertName: "avatar_card_center",
-          avatarRightName: "avatar_card_right"
-        )
-        
-        AvatarCardView(
-          title: "Dogs & cats",
-          description: "Make your pet a superhero",
-          avatarLeftName: "avatar_animal_card_left",
-          avatarCentertName: "avatar_animal_card_center",
-          avatarRightName: "avatar_animal_card_right"
-        )
-        .padding(.top, 24)
+      NavigationStack {
+        ScrollView(.vertical, showsIndicators: false) {
+          ListAvatarCardsView(
+            store: store.scope(
+              state: \.listAvatarCardsState,
+              action: RootFeature.Action.listAvatarCardsAction
+            )
+          )
+        }
+        .navigationTitle(AvatarsStrings.Localizable.avatarsAi)
+        .navigationBarTitleDisplayMode(.large)
       }
     }
   }
@@ -39,7 +33,9 @@ struct RootView: View {
 struct RootView_Previews: PreviewProvider {
   static var previews: some View {
     RootView(
-      store: Store(initialState: RootFeature.State()) {
+      store: Store(initialState: RootFeature.State(
+        listAvatarCardsState: .init()
+      )) {
         RootFeature()
       }
     )

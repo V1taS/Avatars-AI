@@ -50,8 +50,8 @@ file_length:
   error: 1000
 
 line_length:
-  error: 160
-  warning: 140
+  error: 200
+  warning: 180
   ignores_comments: true
   ignores_urls: true
 

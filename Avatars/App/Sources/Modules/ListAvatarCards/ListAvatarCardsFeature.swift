@@ -10,6 +10,7 @@ import Foundation
 import ComposableArchitecture
 
 struct ListAvatarCardsFeature: Reducer {
+  
   struct State: Equatable {
     
   }

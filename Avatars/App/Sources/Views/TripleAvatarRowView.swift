@@ -60,9 +60,9 @@ private extension TripleAvatarRowView {
 struct TripleAvatarRowView_Previews: PreviewProvider {
   static var previews: some View {
     TripleAvatarRowView(
-      avatarLeftName: "avatar_card_left",
-      avatarCentertName: "avatar_card_center",
-      avatarRightName: "avatar_card_right"
+      avatarLeftName: AvatarsAsset.avatarCardLeft.name,
+      avatarCentertName: AvatarsAsset.avatarCardCenter.name,
+      avatarRightName: AvatarsAsset.avatarCardRight.name
     )
   }
 }
